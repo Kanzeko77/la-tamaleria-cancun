@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - La Tamalería Cancún</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/admin.js"></script>
+    <script defer src="js/firebase-config.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Panel de Administración</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="admin-dashboard.html">Administración</a>
+        </nav>
+    </header>
+
+    <section id="admin-panel">
+        <h2>Gestión de Productos</h2>
+        <div id="products-container"></div>
+
+        <h2>Agregar Nuevo Producto</h2>
+        <input type="text" id="product-name" placeholder="Nombre del producto">
+        <input type="number" id="product-price" placeholder="Precio">
+        <input type="number" id="product-stock" placeholder="Stock">
+        <button onclick="addProduct()">Agregar Producto</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 La Tamalería Cancún - Administración</p>
+    </footer>
+</body>
+</html>

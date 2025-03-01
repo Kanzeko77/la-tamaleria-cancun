@@ -1,0 +1,115 @@
+/* Estilos generales para la versión móvil */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos básicos del body */
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Aseguramos que las imágenes se ajusten a la pantalla de forma fluida */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilos para el header */
+header {
+  background-color: #f8b400; /* Color cálido inspirando cultura mexicana */
+  padding: 15px;
+  text-align: center;
+  color: white;
+}
+
+header h1 {
+  font-size: 2.5em;
+  font-family: 'Pacifico', cursive;
+}
+
+/* Menú en móviles */
+nav {
+  display: none; /* Menú oculto por defecto */
+  background-color: #f8b400;
+  padding: 15px;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  margin: 10px 0;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+/* Muestra el menú cuando se hace clic */
+#menu-toggle:checked + nav {
+  display: block;
+}
+
+/* Estilos para la sección de productos */
+.products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.product-card {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 15px 0;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.product-card img {
+  max-width: 80%;
+  margin-bottom: 15px;
+}
+
+.product-card h3 {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.8em;
+}
+
+/* Estilos para el footer */
+footer {
+  background-color: #f8b400;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Estilos responsivos para pantallas de más de 768px */
+@media (min-width: 768px) {
+  .products {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .product-card {
+    width: 45%; /* Dos columnas en pantallas medianas */
+  }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 1200px) {
+  .product-card {
+    width: 30%; /* Tres columnas en pantallas grandes */
+  }
+}

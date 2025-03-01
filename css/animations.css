@@ -1,0 +1,101 @@
+/* Animación para el encabezado */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+header {
+  animation: slideIn 1s ease-out;
+}
+
+/* Animación para los productos */
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.product-card {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Animación para las imágenes al pasar el mouse */
+.product-card img {
+  transition: transform 0.3s ease;
+}
+
+.product-card img:hover {
+  transform: scale(1.05); /* Efecto de zoom cuando pasa el mouse */
+}
+
+/* Animación del botón de agregar al carrito */
+@keyframes pulseButton {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button {
+  animation: pulseButton 1s ease-out infinite;
+  background-color: #f8b400;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2em;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #f16d00; /* Color más oscuro para el hover */
+}
+
+/* Animación de texto del footer */
+@keyframes fadeInFooter {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+footer {
+  animation: fadeInFooter 1s ease-out;
+}
+
+/* Animación en la transición de los productos */
+@keyframes slideProduct {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.product-card {
+  animation: slideProduct 1s ease-out forwards;
+}

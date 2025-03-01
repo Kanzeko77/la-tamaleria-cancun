@@ -1,0 +1,149 @@
+/* ======= Estilos Generales ======= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff8e1; /* Color cálido inspirado en la cultura mexicana */
+    color: #4a2c2a;
+    overflow-x: hidden;
+}
+
+/* ======= Header ======= */
+header {
+    background: #ff6347; /* Color rojo vibrante */
+    padding: 15px;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ======= Menú de Navegación ======= */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    background: #ffcc80;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #4a2c2a;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #d84315;
+}
+
+/* ======= Sección de Productos ======= */
+section {
+    padding: 30px;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.producto {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    text-align: center;
+    width: 250px;
+}
+
+.producto img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.producto h3 {
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+
+.producto:hover {
+    transform: scale(1.05);
+}
+
+/* ======= Botón de Pedido ======= */
+.order-button {
+    background: #d84315;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.order-button:hover {
+    background: #bf360c;
+}
+
+/* ======= Botón de WhatsApp ======= */
+.whatsapp-button {
+    display: inline-block;
+    background-color: #25d366;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.whatsapp-button:hover {
+    background-color: #1ebe57;
+}
+
+/* ======= Footer ======= */
+footer {
+    text-align: center;
+    background-color: #4a2c2a;
+    color: white;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+/* ======= Responsividad ======= */
+@media (max-width: 768px) {
+    header {
+        font-size: 1.5rem;
+    }
+
+    .menu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .producto {
+        width: 90%;
+    }
+
+    .order-button {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+}
