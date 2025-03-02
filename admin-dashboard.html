@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administración - La Tamalería Cancún</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/admin.js"></script>
-    <script defer src="js/firebase-config.js"></script>
+    <!-- Mismos metadatos y enlaces que en index.html -->
+    <title>Panel de Administración - La Tamalería Cancún</title>
+    <!-- Repite los mismos enlaces a CSS y scripts del index -->
 </head>
 <body>
+
     <header>
-        <h1>Panel de Administración</h1>
+        <div class="logo">
+            <h1>Panel de Administración</h1>
+        </div>
         <nav>
-            <a href="index.html">Inicio</a>
-            <a href="admin-dashboard.html">Administración</a>
+            <a href="index.html">Volver al Sitio</a>
         </nav>
     </header>
 
-    <section id="admin-panel">
-        <h2>Gestión de Productos</h2>
-        <div id="products-container"></div>
+    <main class="admin-container">
+        <!-- Añade aquí el nuevo código -->
+        <div class="admin-section">
+            <h2>Agregar Nuevo Producto</h2>
+            <input type="text" id="productName" placeholder="Nombre del Producto">
+            <input type="text" id="productDescription" placeholder="Descripción">
+            <input type="number" id="productPrice" placeholder="Precio">
+            <input type="number" id="productStock" placeholder="Stock">
+            <input type="text" id="productImage" placeholder="URL de la imagen">
+            <button onclick="createProduct()">Crear Producto</button>
+        </div>
 
-        <h2>Agregar Nuevo Producto</h2>
-        <input type="text" id="product-name" placeholder="Nombre del producto">
-        <input type="number" id="product-price" placeholder="Precio">
-        <input type="number" id="product-stock" placeholder="Stock">
-        <button onclick="addProduct()">Agregar Producto</button>
-    </section>
+        <div class="admin-section" id="products">
+            <h2>Inventario Actual</h2>
+            <!-- Los productos existentes se cargarán aquí dinámicamente -->
+        </div>
+    </main>
 
-    <footer>
-        <p>&copy; 2025 La Tamalería Cancún - Administración</p>
-    </footer>
+    <!-- Añade estos scripts solo para admin -->
+    <script src="js/admin.js"></script>
+    
 </body>
 </html>
