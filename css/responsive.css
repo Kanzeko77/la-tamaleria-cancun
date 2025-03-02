@@ -95,18 +95,27 @@ footer {
 }
 
 /* Estilos responsivos para pantallas de más de 768px */
-@media (min-width: 768px) {
-  .products {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: #fff;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 150px;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
 
-  .product-card {
-    width: 45%; /* Dos columnas en pantallas medianas */
-  }
+    nav ul.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
 }
-
 /* Estilos para pantallas grandes */
 @media (min-width: 1200px) {
   .product-card {
