@@ -1,0 +1,41 @@
+.header {
+    background: var(--rojo-mexico);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--sombra);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-link {
+    color: var(--blanco);
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    transition: var(--transicion-rapida);
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--amarillo);
+    transition: var(--transicion-rapida);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
