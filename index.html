@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <!-- Meta Tags SEO -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="La Tamalería Cancún - Auténticos tamales mexicanos y atoles tradicionales. Pedidos en línea y catering especializado.">
+    <meta name="keywords" content="tamales, cancún, comida mexicana, atole, catering, comida tradicional">
+    <meta property="og:title" content="La Tamalería Cancún">
+    <meta property="og:image" content="img/og-image.jpg">
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Estilos -->
+    <style>
+        :root {
+            --rojo-mexico: #C8102E;
+            --amarillo: #FFD100;
+            --azul: #002D62;
+            --blanco: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: url('img/talavera-pattern.png');
+            margin: 0;
+        }
+
+        .header {
+            background: var(--rojo-mexico);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--blanco);
+            text-decoration: none;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('img/hero-tamales.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .menu-section {
+            padding: 4rem 2rem;
+            background: var(--blanco);
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .menu-tab {
+            padding: 1rem 2rem;
+            margin: 0 1rem;
+            cursor: pointer;
+            border: 2px solid var(--rojo-mexico);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .menu-item {
+            background: var(--blanco);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#menu">Menú</a>
+            <a href="#ordenes">Órdenes Especiales</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 style="color: white; font-family: 'Pacifico', cursive; font-size: 4rem;">La Tamalería Cancún</h1>
+    </section>
+
+    <!-- Menú -->
+    <section id="menu" class="menu-section">
+        <div class="menu-tabs">
+            <div class="menu-tab" onclick="showMenu('tamales')">Tamales</div>
+            <div class="menu-tab" onclick="showMenu('atoles')">Atoles</div>
+        </div>
+        
+        <div class="menu-grid" id="menu-content"></div>
+    </section>
+
+    <!-- Firebase y Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <script>
+        // Configuración Firebase
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROYECTO.firebaseapp.com",
+            projectId: "TU_PROYECTO",
+            storageBucket: "TU_PROYECTO.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        // Cargar Menú
+        function loadMenu(collection) {
+            db.collection(collection).get().then((querySnapshot) => {
+                const menuContent = document.getElementById('menu-content');
+                menuContent.innerHTML = '';
+                
+                querySnapshot.forEach((doc) => {
+                    const item = doc.data();
+                    menuContent.innerHTML += `
+                        <div class="menu-item">
+                            <h3>${item.nombre}</h3>
+                            <p>${item.descripcion}</p>
+                            <p class="price">$${item.precio}</p>
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        function showMenu(type) {
+            loadMenu(type);
+        }
+
+        // Cargar inicialmente tamales
+        window.onload = () => loadMenu('tamales');
+    </script>
+
+    <!-- Panel Admin (Ejemplo básico) -->
+    <script>
+        // Función de Login
+        function adminLogin() {
+            const email = prompt("Email:");
+            const password = prompt("Contraseña:");
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Verificar rol de admin
+                    db.collection('users').doc(userCredential.user.uid).get()
+                        .then(doc => {
+                            if (doc.data().role === 'admin') {
+                                window.location.href = '/admin-panel.html';
+                            }
+                        });
+                })
+                .catch(error => alert("Error de autenticación"));
+        }
+
+        // CRUD Ejemplo
+        function updateStock(itemId, newStock) {
+            db.collection('inventario').doc(itemId).update({
+                stock: newStock
+            });
+        }
+    </script>
+</body>
+</html>
