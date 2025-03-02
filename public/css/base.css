@@ -1,0 +1,26 @@
+:root {
+    --rojo-mexico: #C8102E;
+    --amarillo: #FFD100;
+    --azul: #002D62;
+    --blanco: #FFFFFF;
+    --sombra: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transicion-rapida: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.6;
+    background: url('../img/talavera-pattern.png');
+    color: #333;
+}
+
+h1, h2, h3 {
+    font-family: 'Pacifico', cursive;
+    color: var(--rojo-mexico);
+}
