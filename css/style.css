@@ -24,27 +24,42 @@ header {
 }
 
 /* ======= Menú de Navegación ======= */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+
 nav ul {
     list-style: none;
     display: flex;
-    justify-content: center;
-    padding: 10px 0;
-    background: #ffcc80;
+    gap: 20px;
 }
 
 nav ul li {
-    margin: 0 15px;
+    display: inline;
 }
 
 nav ul li a {
-    color: #4a2c2a;
     text-decoration: none;
+    color: #333;
     font-weight: bold;
-    transition: color 0.3s;
 }
 
-nav ul li a:hover {
-    color: #d84315;
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 /* ======= Sección de Productos ======= */
