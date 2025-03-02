@@ -1,72 +1,98 @@
 // Inicialización de Three.js para Realidad Aumentada
 // Usando AR.js con Three.js para cargar y mostrar un modelo 3D en AR
 
-// Configuración de la escena y la cámara
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+let scene, camera, renderer, alebrije;
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+function initAR() {
+    // Crear la escena con fondo gradient
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color().setHSL(0.6, 0.5, 0.5);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-// Crear un objeto 3D (por ejemplo, tamal)
-const geometry = new THREE.BoxGeometry( 1, 1, 1 ); // Usando una caja para simular un tamal 3D
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh( geometry, material );
-scene.add(cube);
+    // Renderizador con sombras
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-// Posicionar la cámara
-camera.position.z = 5;
+    // Crear un alebrije estilizado
+    const geometriaBase = new THREE.CylinderGeometry(1, 1.5, 2, 8);
+    const material = new THREE.MeshStandardMaterial({
+        color: 0xFFD700, // Dorado
+        metalness: 0.7,
+        roughness: 0.3,
+        emissive: 0xCD2026, // Rojo mexicano
+        emissiveIntensity: 0.5
+    });
 
-// Función de animación para la visualización AR
+    // Geometrías adicionales para detalles
+    const detalleGeometria = new THREE.TorusGeometry(1.2, 0.1, 16, 100);
+    const patronGeometria = new THREE.SphereGeometry(0.3, 32, 32);
+
+    // Crear grupo principal
+    alebrije = new THREE.Group();
+
+    // Cuerpo principal
+    const cuerpo = new THREE.Mesh(geometriaBase, material);
+    alebrije.add(cuerpo);
+
+    // Detalles decorativos
+    const detalles = [];
+    const colores = [0x008C45, 0xCD2026, 0xFFFFFF]; // Verde, rojo, blanco
+    for(let i = 0; i < 8; i++) {
+        const detalle = new THREE.Mesh(detalleGeometria, new THREE.MeshStandardMaterial({
+            color: colores[i % 3],
+            metalness: 0.5
+        }));
+        detalle.rotation.x = Math.PI/2;
+        detalle.position.y = i * 0.2 - 0.8;
+        detalles.push(detalle);
+        alebrije.add(detalle);
+    }
+
+    // Patrones flotantes
+    const patrones = new THREE.Group();
+    for(let i = 0; i < 12; i++) {
+        const patron = new THREE.Mesh(patronGeometria, new THREE.MeshStandardMaterial({
+            color: colores[i % 3],
+            emissive: colores[(i+1) % 3],
+            emissiveIntensity: 0.3
+        }));
+        const angulo = (i / 12) * Math.PI * 2;
+        patron.position.set(Math.cos(angulo) * 2, Math.sin(angulo) * 0.5, Math.sin(angulo) * 2);
+        patrones.add(patron);
+    }
+    alebrije.add(patrones);
+
+    scene.add(alebrije);
+
+    // Iluminación dramática
+    const luzFondo = new THREE.PointLight(0xCD2026, 1, 50);
+    luzFondo.position.set(0, 5, 5);
+    scene.add(luzFondo);
+
+    const luzAmbiente = new THREE.AmbientLight(0xFFFFFF, 0.5);
+    scene.add(luzAmbiente);
+
+    camera.position.z = 7;
+
+    animate();
+}
+
 function animate() {
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 
-  // Rotar el objeto 3D para animarlo
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+    // Animación compleja con múltiples movimientos
+    alebrije.rotation.y += 0.01;
+    alebrije.rotation.x = Math.sin(Date.now() * 0.001) * 0.2;
+    alebrije.position.y = Math.sin(Date.now() * 0.002) * 0.5;
+    
+    // Rotación de patrones
+    alebrije.children[2].rotation.y += 0.02;
+    alebrije.children[2].children.forEach((patron, index) => {
+        patron.position.y = Math.sin(Date.now() * 0.001 + index) * 0.5;
+    });
 
-  renderer.render(scene, camera);
+    renderer.render(scene, camera);
 }
 
-// Llamada a la función de animación
-animate();
-
-// Integración con AR.js
-// Asegúrate de tener AR.js incluido en el proyecto para usar la funcionalidad de AR
-const arToolkitSource = new THREEx.ArToolkitSource({ sourceType: 'webcam' });
-
-arToolkitSource.init(function () {
-  setTimeout(function () {
-    onResize();
-  }, 2000);
-});
-
-const arToolkitContext = new THREEx.ArToolkitContext({
-  cameraParametersUrl: 'path_to_camera_para.dat',
-  detectionMode: 'mono',
-});
-
-arToolkitContext.init(function () {
-  camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-});
-
-// Animación AR
-function onRenderFrame() {
-  if (arToolkitSource.ready === false) {
-    return;
-  }
-
-  arToolkitContext.update(arToolkitSource.domElement);
-  renderer.render(scene, camera);
-}
-
-arToolkitSource.onResize = onResize;
-window.addEventListener('resize', onResize);
-
-function onResize() {
-  arToolkitSource.onResize();
-  arToolkitContext.onResize();
-}
-
-animate(); // Start AR render loop
+initAR();
