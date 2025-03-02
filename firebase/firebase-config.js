@@ -1,15 +1,21 @@
 // firebase-config.js
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
+// Tu configuración de Firebase
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "tu-proyecto.firebaseapp.com",
-    databaseURL: "https://tu-proyecto.firebaseio.com",
-    projectId: "tu-proyecto-id",
-    storageBucket: "tu-proyecto.appspot.com",
-    messagingSenderId: "TU_MESSAGING_SENDER_ID",
-    appId: "TU_APP_ID"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
 };
 
+// Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
 
+// Obtener la referencia a la base de datos de Firestore
 const db = firebase.firestore();
+
+export default db;
